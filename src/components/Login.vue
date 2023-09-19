@@ -8,34 +8,53 @@
         <i class="fa-regular fa-user"></i>
       </div>
     </div>
-    <form class="text-center w-75 m-auto">
-      <div class="d-flex justify-start flex-wrap align-start">
-        <div class="w-100 d-flex justify-center">
-          <div
-            class="h-100 bg-light-primary d-flex justify-center align-center"
-            style="height: 35px; width: 35px"
-          >
-            <i class="fa-solid fa-user text-white"></i>
-          </div>
-          <Input
-            class="w-100 rounded-0 my-input text-white ps-2"
-            placeholder="Username"
-          />
+    <form class="text-center w-75 m-auto" @submit.prevent>
+      <div class="w-100 d-flex justify-center">
+        <div
+          class="h-100 bg-light-primary d-flex justify-center align-center"
+          style="height: 35px; width: 35px"
+        >
+          <i class="fa-solid fa-user text-white"></i>
         </div>
-
-        <div class="w-100 d-flex justify-start mt-3">
-          <div
-            class="h-100 bg-light-primary d-flex justify-center align-center"
-            style="height: 35px; width: 35px"
-          >
-            <i class="fa-solid fa-lock text-white"></i>
-          </div>
-          <Input
-            class="w-100 rounded-0 my-input text-white ps-2"
-            placeholder="Password"
-          />
-        </div>
+        <Input
+          class="w-100 rounded-0 my-input text-white ps-2"
+          placeholder="Username"
+          v-model="username"
+          :inputContainsFalsyValue="inputContainsFalsyValue"
+        />
       </div>
+
+      <div>
+        <p
+          v-if="isCyrillicPattern"
+          class="py-2"
+          style="color: rgb(247, 255, 0); background-color: #106e5d96"
+        >
+          Iltimos kirill alifbosidan foydalanmang !
+        </p>
+        <p
+          v-if="isNumber"
+          class="py-2"
+          style="color: rgb(247, 255, 0); background-color: #106e5d96"
+        >
+          Iltimos raqamlardan foydalanmang !
+        </p>
+        <p
+          v-if="isSpeacialCharacters"
+          class="py-2"
+          style="color: rgb(247, 255, 0); background-color: #106e5d96"
+        >
+          Iltimos begilardan foydalanmang !
+        </p>
+      </div>
+
+      <Button
+        :isCyrillicPattern="isCyrillicPattern"
+        :isSpeacialCharacters="isSpeacialCharacters"
+        :isNumber="isNumber"
+        @click="submitHandler"
+        >SUBMIT</Button
+      >
     </form>
   </div>
 </template>
@@ -43,6 +62,36 @@
 <script>
 export default {
   name: "Login",
+
+  data() {
+    return {
+      username: "",
+      password: "",
+      isCyrillicPattern: false,
+      isNumber: false,
+      isSpeacialCharacters: false,
+    };
+  },
+
+  methods: {
+    submitHandler() {
+      console.log("SUBMIT");
+    },
+    inputContainsFalsyValue(valueInput) {
+      const cyrillicPattern = /[\u0400-\u04FF]/;
+      const latinPattern = /[a-zA-Z]/;
+      const numbers = /\d/;
+      const specialCharacters = /[`!@#$%^&*()_+\-=\\|,.<>?~';']/;
+
+      const value = valueInput;
+
+      this.isCyrillicPattern =
+        cyrillicPattern.test(value) ||
+        (latinPattern.test(value) && cyrillicPattern.test(value));
+      this.isNumber = numbers.test(value);
+      this.isSpeacialCharacters = specialCharacters.test(value);
+    },
+  },
 };
 </script>
 

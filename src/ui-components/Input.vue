@@ -1,10 +1,27 @@
 <template>
-  <input class="my-input" />
+  <input
+    type="text"
+    class="my-input"
+    :value="modelValue"
+    @input="updateInputHandler"
+  />
 </template>
 
 <script>
 export default {
-  name: "Imput",
+  name: "Input",
+
+  props: {
+    modelValue: String,
+    inputContainsFalsyValue: Function,
+  },
+
+  methods: {
+    updateInputHandler(e) {
+      this.$emit("update:modelValue", e.target.value);
+      this.inputContainsFalsyValue(e.target.value);
+    },
+  },
 };
 </script>
 
