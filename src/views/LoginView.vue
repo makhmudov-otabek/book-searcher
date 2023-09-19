@@ -1,5 +1,8 @@
 <template>
-  <div class="container">
+  <div
+    style="height: 100vh"
+    class="container d-flex justify-center align-center"
+  >
     <Login />
   </div>
 </template>
