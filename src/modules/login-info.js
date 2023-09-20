@@ -1,4 +1,5 @@
 import { getterTypes } from "./types";
+import { getItem, setItem } from "../helpers/persistanseStorage";
 
 const state = {
   user: null,
@@ -26,10 +27,18 @@ const mutations = {
 };
 
 const actions = {
+  getUser(context) {
+    const user = getItem("user");
+    context.commit("logInSuccess", user);
+
+    return user;
+  },
+
   logIn(context, payload) {
     context.commit("logInStart");
     setTimeout(() => {
       context.commit("logInSuccess", payload);
+      setItem("user", payload);
     }, 3000);
   },
 };

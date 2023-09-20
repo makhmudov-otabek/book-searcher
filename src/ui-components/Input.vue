@@ -29,7 +29,6 @@ export default {
 .my-input {
   border: none !important;
   height: 35px;
-  background-color: #106e5d96;
 }
 
 .my-input:focus {

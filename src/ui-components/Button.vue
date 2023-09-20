@@ -6,7 +6,7 @@
       isSpeacialCharacters ||
       !maximumCharactersReached
     "
-    class="w-100 py-1 mt-2 bg-light-primary rounded-0 text-white submit-btn"
+    class="w-100 py-1 rounded-0 text-white submit-btn"
     style="border: none"
     :class="{
       'submit-btn-hover':

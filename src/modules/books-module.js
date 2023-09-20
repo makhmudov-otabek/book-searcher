@@ -29,6 +29,7 @@ const actions = {
       BooksService.getBooks(query)
         .then((payload) => {
           console.log(payload);
+          context.commit("getBooksSuccess", payload.data);
         })
         .catch((error) => {
           console.log(error);

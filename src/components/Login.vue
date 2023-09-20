@@ -56,6 +56,7 @@
       </div>
 
       <Button
+        class="mt-2 bg-light-primary"
         :class="{ loader: isLoading }"
         :isCyrillicPattern="isCyrillicPattern"
         :isSpeacialCharacters="isSpeacialCharacters"
@@ -92,6 +93,7 @@ export default {
     submitHandler() {
       const payload = {
         username: this.username,
+        isLoggedIn: true,
       };
 
       this.$store.dispatch("logIn", payload);
