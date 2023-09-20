@@ -98,7 +98,7 @@ export default {
 
       this.$store.dispatch("logIn", payload);
       setTimeout(() => {
-        this.$router.push("/home/q=programming");
+        this.$router.push("/home");
       }, 3000);
     },
     inputContainsFalsyValue(valueInput) {

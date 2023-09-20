@@ -7,7 +7,7 @@ const BooksService = {
         q: query,
         key: "AIzaSyBFeGsSWeAzRUFCl-P1r3_QJLjoxdfNKEM",
         startIndex: 0,
-        maxResults: 10,
+        maxResults: 12,
       },
     });
   },

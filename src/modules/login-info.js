@@ -1,5 +1,5 @@
 import { getterTypes } from "./types";
-import { getItem, setItem } from "../helpers/persistanseStorage";
+import { getItem, removeItem, setItem } from "../helpers/persistanseStorage";
 
 const state = {
   user: null,
@@ -40,6 +40,10 @@ const actions = {
       context.commit("logInSuccess", payload);
       setItem("user", payload);
     }, 3000);
+  },
+
+  logOut() {
+    removeItem("user");
   },
 };
 

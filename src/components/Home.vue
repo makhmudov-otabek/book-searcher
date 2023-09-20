@@ -1,5 +1,13 @@
 <template>
-  <div class="bg-secondary">
+  <div
+    style="
+      background-color: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(15px);
+      position: sticky;
+      top: 0;
+    "
+    class="text-white"
+  >
     <div class="container">
       <Navbar />
     </div>

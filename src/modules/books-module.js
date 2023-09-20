@@ -28,8 +28,8 @@ const actions = {
       context.commit("getBooksStarted");
       BooksService.getBooks(query)
         .then((payload) => {
-          console.log(payload);
-          context.commit("getBooksSuccess", payload.data);
+          console.log(payload.data.items);
+          context.commit("getBooksSuccess", payload.data.items);
         })
         .catch((error) => {
           console.log(error);
