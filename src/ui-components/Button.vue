@@ -1,13 +1,24 @@
 <template>
   <button
-    :disabled="isCyrillicPattern || isNumber || isSpeacialCharacters"
+    :disabled="
+      isCyrillicPattern ||
+      isNumber ||
+      isSpeacialCharacters ||
+      !maximumCharactersReached
+    "
     class="w-100 py-1 mt-2 bg-light-primary rounded-0 text-white submit-btn"
     style="border: none"
     :class="{
       'submit-btn-hover':
-        !isCyrillicPattern && !isNumber && !isSpeacialCharacters,
+        !isCyrillicPattern &&
+        !isNumber &&
+        !isSpeacialCharacters &&
+        maximumCharactersReached,
       'submit-btn-disabled':
-        isCyrillicPattern || isNumber || isSpeacialCharacters,
+        isCyrillicPattern ||
+        isNumber ||
+        isSpeacialCharacters ||
+        !maximumCharactersReached,
     }"
   >
     <slot></slot>
@@ -22,6 +33,7 @@ export default {
     isCyrillicPattern: Boolean,
     isNumber: Boolean,
     isSpeacialCharacters: Boolean,
+    maximumCharactersReached: Boolean,
   },
 };
 </script>

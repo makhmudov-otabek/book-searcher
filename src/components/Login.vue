@@ -26,6 +26,13 @@
 
       <div>
         <p
+          v-if="!maximumCharactersReached"
+          class="py-2"
+          style="color: rgb(247, 255, 0); background-color: #106e5d96"
+        >
+          Iltimos 16 ta belgi kiriting !
+        </p>
+        <p
           v-if="isCyrillicPattern"
           class="py-2"
           style="color: rgb(247, 255, 0); background-color: #106e5d96"
@@ -49,9 +56,11 @@
       </div>
 
       <Button
+        :class="{ loader: isLoading }"
         :isCyrillicPattern="isCyrillicPattern"
         :isSpeacialCharacters="isSpeacialCharacters"
         :isNumber="isNumber"
+        :maximumCharactersReached="maximumCharactersReached"
         @click="submitHandler"
         >SUBMIT</Button
       >
@@ -66,30 +75,48 @@ export default {
   data() {
     return {
       username: "",
-      password: "",
       isCyrillicPattern: false,
       isNumber: false,
       isSpeacialCharacters: false,
+      maximumCharactersReached: false,
     };
+  },
+
+  computed: {
+    isLoading() {
+      return this.$store.state.loginInfo.isLoading;
+    },
   },
 
   methods: {
     submitHandler() {
-      console.log("SUBMIT");
+      const payload = {
+        username: this.username,
+      };
+
+      this.$store.dispatch("logIn", payload);
+      setTimeout(() => {
+        this.$router.push("/home/q=programming");
+      }, 3000);
     },
     inputContainsFalsyValue(valueInput) {
+      const value = valueInput;
       const cyrillicPattern = /[\u0400-\u04FF]/;
       const latinPattern = /[a-zA-Z]/;
       const numbers = /\d/;
       const specialCharacters = /[`!@#$%^&*()_+\-=\\|,.<>?~';']/;
-
-      const value = valueInput;
 
       this.isCyrillicPattern =
         cyrillicPattern.test(value) ||
         (latinPattern.test(value) && cyrillicPattern.test(value));
       this.isNumber = numbers.test(value);
       this.isSpeacialCharacters = specialCharacters.test(value);
+
+      if (value.length < 16) {
+        this.maximumCharactersReached = false;
+      } else {
+        this.maximumCharactersReached = true;
+      }
     },
   },
 };
@@ -112,5 +139,22 @@ export default {
   border: none !important;
   height: 35px;
   background-color: #106e5d96;
+}
+@keyframes close-button {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.loader {
+  animation-name: close-button;
+  animation-iteration-count: infinite;
+  animation-duration: 1s;
 }
 </style>

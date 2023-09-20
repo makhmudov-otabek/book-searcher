@@ -17,13 +17,11 @@ const mutations = {
     state.errors = null;
     state.user = null;
     state.isLoggedIn = false;
-    console.log("log in start");
   },
   logInSuccess(state, payload) {
     state.isLoading = false;
     state.user = payload;
     state.isLoggedIn = true;
-    console.log("log in success");
   },
 };
 
