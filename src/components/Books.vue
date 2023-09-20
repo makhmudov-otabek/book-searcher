@@ -7,10 +7,22 @@
     Loading...
   </h2>
 
-  <div class="p-2 my-5 d-flex justify-between flex-wrap" style="gap: 20px">
+  <h2
+    v-else-if="this.$store.state.booksModule.errors"
+    style="color: #ffba08"
+    class="text-center"
+  >
+    Server bilan ulanishda muammo bor !
+  </h2>
+
+  <div
+    class="p-2 my-5 d-flex align-start flex-wrap justify-start-responsive"
+    style="gap: 20px"
+  >
     <div
       class="book-card col-3-6 p-2 border rounded-1 text-white px-3"
       v-for="book in books"
+      :key="book.id"
     >
       <div class="w-100 mt-3 d-flex justify-center">
         <img
@@ -32,9 +44,15 @@
       </p>
       <p style="line-height: 1.55">
         Authors :
-        <span v-for="author in book.volumeInfo.authors">{{ author }}, </span>
+        <span v-for="(author, index) in book.volumeInfo.authors" :key="author"
+          >{{ author }}
+          <template v-if="index < book?.volumeInfo?.authors?.length - 1"
+            >,
+          </template>
+        </span>
       </p>
       <button
+        @click="navigateBookHandler(book.id)"
         class="w-100 bg-transparent border rounded-1 text-white py-1"
         style="border-color: #a7a6a6"
       >
@@ -53,7 +71,11 @@ export default {
     }),
   },
 
-  methods: {},
+  methods: {
+    navigateBookHandler(id) {
+      this.$router.push(`/home/${this.$route.params.query}/book-detail/${id}`);
+    },
+  },
 };
 </script>
 <style>

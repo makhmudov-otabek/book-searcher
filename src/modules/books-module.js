@@ -24,16 +24,17 @@ const mutations = {
 
 const actions = {
   getBooks(context, query) {
-    return new Promise(() => {
+    return new Promise((resolve, reject) => {
       context.commit("getBooksStarted");
       BooksService.getBooks(query)
         .then((payload) => {
-          console.log(payload.data.items);
           context.commit("getBooksSuccess", payload.data.items);
+          resolve(payload.data.items);
         })
         .catch((errors) => {
           console.log(errors);
           context.commit("getBooksFailure", errors);
+          reject(errors);
         });
     });
   },

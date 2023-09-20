@@ -12,9 +12,10 @@
 
 <script>
 import { RouterLink, RouterView } from "vue-router";
-import { getItem } from "./helpers/persistanseStorage";
+import BookDetailView from "./views/BookDetailView.vue";
 
 export default {
+  components: { BookDetailView },
   mounted() {
     this.$store.dispatch("getUser");
     if (!this.$store.state.loginInfo.user?.isLoggedIn) {

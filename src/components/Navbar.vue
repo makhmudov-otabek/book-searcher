@@ -1,5 +1,5 @@
 <template>
-  <div class="py-1 px-2">
+  <div class="py-1 px-4">
     <div class="d-flex justify-between align-center">
       <p class="text-capitalize m-0">
         {{ this.$store.state.loginInfo.user.username }}
@@ -48,9 +48,11 @@ export default {
       this.$router.push("/");
     },
     searchHandler() {
-      console.log("Searching...");
-      this.$store.dispatch("getBooks", this.inputValue.trim());
-      this.$router.push(`/home/${this.inputValue.trim()}`);
+      const newQuery =
+        this.inputValue.trim().length > 0 ? this.inputValue.trim() : "harry";
+
+      this.$store.dispatch("getBooks", newQuery);
+      this.$router.push(`/home/${newQuery}`);
       this.inputValue = "";
     },
   },

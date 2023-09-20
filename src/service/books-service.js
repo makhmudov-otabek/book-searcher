@@ -4,10 +4,8 @@ const BooksService = {
   getBooks(query) {
     return axios.get(`/v1/volumes`, {
       params: {
-        q: query === "" ? "Harry" : query,
+        q: query,
         key: "AIzaSyBFeGsSWeAzRUFCl-P1r3_QJLjoxdfNKEM",
-        startIndex: 0,
-        maxResults: 12,
       },
     });
   },

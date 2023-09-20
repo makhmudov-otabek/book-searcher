@@ -14,7 +14,7 @@
     </div>
   </div>
 
-  <div class="">
+  <div>
     <div class="container">
       <Books />
     </div>
@@ -27,7 +27,7 @@ export default {
   name: "Home",
   components: { Navbar, Books },
   mounted() {
-    this.$store.dispatch("getBooks", "programming");
+    this.$store.dispatch("getBooks", this.$route.params.query);
   },
 };
 </script>
