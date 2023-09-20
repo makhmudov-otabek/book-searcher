@@ -16,13 +16,18 @@
   </h2>
 
   <div
-    class="p-2 my-5 d-flex align-start flex-wrap justify-start-responsive"
+    class="p-2 my-5 d-flex flex-wrap justify-start-responsive"
     style="gap: 20px"
   >
     <div
       class="book-card col-3-6 p-2 border rounded-1 text-white px-3"
       v-for="book in books"
       :key="book.id"
+      style="
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      "
     >
       <div class="w-100 mt-3 d-flex justify-center">
         <img
@@ -39,18 +44,20 @@
         />
       </div>
 
-      <p class="mt-5" style="line-height: 1.55">
-        Title : {{ book.volumeInfo.title }}
-      </p>
-      <p style="line-height: 1.55">
-        Authors :
-        <span v-for="(author, index) in book.volumeInfo.authors" :key="author"
-          >{{ author }}
-          <template v-if="index < book?.volumeInfo?.authors?.length - 1"
-            >,
-          </template>
-        </span>
-      </p>
+      <div>
+        <p class="mt-5" style="line-height: 1.55">
+          Title : {{ book.volumeInfo.title }}
+        </p>
+        <p style="line-height: 1.55">
+          Authors :
+          <span v-for="(author, index) in book.volumeInfo.authors" :key="author"
+            >{{ author }}
+            <template v-if="index < book?.volumeInfo?.authors?.length - 1"
+              >,
+            </template>
+          </span>
+        </p>
+      </div>
       <button
         @click="navigateBookHandler(book.id)"
         class="w-100 bg-transparent border rounded-1 text-white py-1"
