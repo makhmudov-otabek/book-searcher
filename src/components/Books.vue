@@ -1,4 +1,12 @@
 <template>
+  <h2
+    v-if="this.$store.state.booksModule.isLoading"
+    style="color: #ffba08"
+    class="text-center"
+  >
+    Loading...
+  </h2>
+
   <div class="p-2 my-5 d-flex justify-between flex-wrap" style="gap: 20px">
     <div
       class="book-card col-3-6 p-2 border rounded-1 text-white px-3"
@@ -14,16 +22,24 @@
             overflow: hidden;
           "
           class="rounded-1"
-          :src="book.volumeInfo.imageLinks.smallThumbnail"
+          :src="book.volumeInfo.imageLinks?.smallThumbnail"
           alt="Book image"
         />
       </div>
 
-      <p class="mt-5">Title : {{ book.volumeInfo.title }}</p>
-      <p>
+      <p class="mt-5" style="line-height: 1.55">
+        Title : {{ book.volumeInfo.title }}
+      </p>
+      <p style="line-height: 1.55">
         Authors :
         <span v-for="author in book.volumeInfo.authors">{{ author }}, </span>
       </p>
+      <button
+        class="w-100 bg-transparent border rounded-1 text-white py-1"
+        style="border-color: #a7a6a6"
+      >
+        READ
+      </button>
     </div>
   </div>
 </template>
@@ -50,5 +66,18 @@ export default {
 .book-card:hover {
   border-color: #fff;
   transform: scale(1.1);
+}
+.book-card:hover button {
+  border-color: #fff;
+}
+
+.book-card button {
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.book-card button:hover {
+  background-color: #ededed;
+  color: #000;
 }
 </style>

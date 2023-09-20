@@ -98,7 +98,7 @@ export default {
 
       this.$store.dispatch("logIn", payload);
       setTimeout(() => {
-        this.$router.push("/home");
+        this.$router.push("/home/:query");
       }, 3000);
     },
     inputContainsFalsyValue(valueInput) {

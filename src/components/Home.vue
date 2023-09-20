@@ -5,6 +5,7 @@
       backdrop-filter: blur(15px);
       position: sticky;
       top: 0;
+      z-index: 99;
     "
     class="text-white"
   >

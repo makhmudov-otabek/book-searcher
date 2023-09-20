@@ -13,6 +13,7 @@
             placeholder="Search books..."
           />
           <button
+            @click="searchHandler"
             class="bg-transparent border-none cursor-pointer text-white"
             style="font-size: 18px"
           >
@@ -45,6 +46,12 @@ export default {
     logOut() {
       this.$store.dispatch("logOut");
       this.$router.push("/");
+    },
+    searchHandler() {
+      console.log("Searching...");
+      this.$store.dispatch("getBooks", this.inputValue.trim());
+      this.$router.push(`/home/${this.inputValue.trim()}`);
+      this.inputValue = "";
     },
   },
 };

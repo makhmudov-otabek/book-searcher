@@ -31,8 +31,9 @@ const actions = {
           console.log(payload.data.items);
           context.commit("getBooksSuccess", payload.data.items);
         })
-        .catch((error) => {
-          console.log(error);
+        .catch((errors) => {
+          console.log(errors);
+          context.commit("getBooksFailure", errors);
         });
     });
   },
