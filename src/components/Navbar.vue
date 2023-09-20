@@ -49,11 +49,10 @@ export default {
     },
     searchHandler() {
       const newQuery =
-        this.inputValue.trim().length > 0 ? this.inputValue.trim() : "harry";
+        this.inputValue.trim().length > 0 ? this.inputValue.trim() : "query";
 
       this.$store.dispatch("getBooks", newQuery);
       this.$router.push(`/home/${newQuery}`);
-      this.inputValue = "";
     },
   },
 };

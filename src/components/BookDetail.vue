@@ -22,32 +22,36 @@
           overflow: hidden;
         "
         class="rounded-1"
-        :src="book?.volumeInfo.imageLinks?.smallThumbnail"
+        :src="book?.volumeInfo?.imageLinks?.smallThumbnail"
         alt="Book image"
       />
       <div>
-        <h2>{{ book?.volumeInfo.title }}</h2>
+        <h2>{{ book?.volumeInfo?.title }}</h2>
 
         <p
-          v-if="book?.volumeInfo.authors && book?.volumeInfo.authors.length > 0"
+          v-if="
+            book?.volumeInfo?.authors && book?.volumeInfo?.authors?.length > 0
+          "
         >
           <span>Authors : </span>
           <span
-            v-for="(author, index) in book?.volumeInfo.authors"
+            v-for="(author, index) in book?.volumeInfo?.authors"
             :key="author"
           >
             {{ author }}
-            <span v-if="index < book?.volumeInfo.authors.length - 1">, </span>
+            <span v-if="index < book?.volumeInfo?.authors?.length - 1">, </span>
           </span>
         </p>
         <p v-else>Author: N/A</p>
       </div>
     </div>
     <p
-      v-if="book?.volumeInfo.authors && book?.volumeInfo.description.length > 0"
+      v-if="
+        book?.volumeInfo?.authors && book?.volumeInfo?.description?.length > 0
+      "
       style="font-size: 26px"
     >
-      {{ book?.volumeInfo.description }}
+      {{ book?.volumeInfo?.description }}
     </p>
     <p v-else>Description: N/A</p>
   </div>

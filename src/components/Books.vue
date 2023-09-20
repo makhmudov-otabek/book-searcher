@@ -15,6 +15,11 @@
     Server bilan ulanishda muammo bor !
   </h2>
 
+  <div v-else-if="!books">
+    <h2 style="color: #ffba08" class="text-center">
+      Siz izlagan kitob topilmadi !
+    </h2>
+  </div>
   <div
     class="p-2 my-5 d-flex flex-wrap justify-start-responsive"
     style="gap: 20px"
