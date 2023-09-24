@@ -19,7 +19,6 @@ export default {
   mounted() {
     this.$store.dispatch("getUser");
     if (!this.$store.state.loginInfo.user?.isLoggedIn) {
-      console.log("app vue");
       this.$router.push("/");
     }
   },

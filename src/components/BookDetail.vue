@@ -1,13 +1,19 @@
 <template>
   <h2
-    v-if="this.$store.state.booksModule.isLoading"
+    data-test-isloading-message
+    v-if="isLoading"
     style="color: #ffba08"
     class="text-center"
   >
     Loading...
   </h2>
 
-  <div v-else-if="error" class="text-center" style="color: #ffba08">
+  <div
+    data-test-error-message
+    v-else-if="error"
+    class="text-center"
+    style="color: #ffba08"
+  >
     <h2>{{ error }}</h2>
   </div>
 
@@ -39,10 +45,14 @@
             :key="author"
           >
             {{ author }}
-            <span v-if="index < book?.volumeInfo?.authors?.length - 1">, </span>
+            <span
+              data-testing-comma-text
+              v-if="index < book?.volumeInfo?.authors?.length - 1"
+              >,
+            </span>
           </span>
         </p>
-        <p v-else>Author: N/A</p>
+        <p data-test-authors-undefined-text v-else>Author: N/A</p>
       </div>
     </div>
     <p
@@ -58,29 +68,19 @@
 </template>
 
 <script>
-import { RouterLink } from "vue-router";
 export default {
   name: "BookDetail",
-  data() {
-    return {
-      book: null,
-      error: null,
-    };
-  },
 
-  mounted() {
-    this.$store
-      .dispatch("getBooks", this.$route.params.query)
-      .then((books) => {
-        const foundedBook = books.find(
-          (item) => item.id === this.$route.params.id
-        );
-
-        this.book = foundedBook;
-      })
-      .catch((error) => {
-        this.error = "Sorry, the book was not found !";
-      });
+  props: {
+    isLoading: {
+      type: Boolean,
+    },
+    error: {
+      type: String,
+    },
+    book: {
+      type: Object,
+    },
   },
 };
 </script>

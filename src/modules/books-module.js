@@ -13,6 +13,7 @@ const mutations = {
     state.errors = null;
   },
   getBooksSuccess(state, payload) {
+    console.log(payload);
     state.isLoading = false;
     state.books = payload;
   },

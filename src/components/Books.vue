@@ -1,6 +1,7 @@
 <template>
   <h2
-    v-if="this.$store.state.booksModule.isLoading"
+    data-isLoading-books-text
+    v-if="isLoadingBooks"
     style="color: #ffba08"
     class="text-center"
   >
@@ -8,23 +9,28 @@
   </h2>
 
   <h2
-    v-else-if="this.$store.state.booksModule.errors"
+    data-errors-messages-books
+    v-else-if="errorMessagesBooks"
     style="color: #ffba08"
     class="text-center"
   >
     Server bilan ulanishda muammo bor !
   </h2>
 
-  <div v-else-if="!books">
+  <div data-searched-book-undefined-text v-else-if="!books">
     <h2 style="color: #ffba08" class="text-center">
       Siz izlagan kitob topilmadi !
     </h2>
   </div>
+
   <div
+    v-else
+    data-books-container-rendering
     class="p-2 my-5 d-flex flex-wrap justify-start-responsive"
     style="gap: 20px"
   >
     <div
+      data-test-book-rendering
       class="book-card col-3-6 p-2 border rounded-1 text-white px-3"
       v-for="book in books"
       :key="book.id"
@@ -64,7 +70,12 @@
         </p>
       </div>
       <button
-        @click="navigateBookHandler(book.id)"
+        data-test-button-book-detail-navigator
+        @click="
+          () => {
+            navigateBook(book.id);
+          }
+        "
         class="w-100 bg-transparent border rounded-1 text-white py-1"
         style="border-color: #a7a6a6"
       >
@@ -74,18 +85,25 @@
   </div>
 </template>
 <script>
-import { mapState } from "vuex";
-
 export default {
-  computed: {
-    ...mapState({
-      books: (state) => state.booksModule.books,
-    }),
+  props: {
+    isLoadingBooks: {
+      type: Boolean,
+      required: true,
+    },
+    errorMessagesBooks: {
+      type: [Array, Object],
+    },
+    books: {
+      type: [Array],
+    },
   },
 
+  emits: ["navigateBookHandler"],
+
   methods: {
-    navigateBookHandler(id) {
-      this.$router.push(`/home/${this.$route.params.query}/book-detail/${id}`);
+    navigateBook(id) {
+      this.$emit("navigateBookHandler", id);
     },
   },
 };
